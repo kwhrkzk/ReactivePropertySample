@@ -18,7 +18,8 @@ namespace ReactivePropertySample.Models
         (
             new List<SampleTreeViewAdapter>{SampleTreeViewAdapter.Create(Sample.Create("root"), false, new List<SampleTreeViewAdapter>{
                 SampleTreeViewAdapter.Create(Sample.Create("Notifier"), false, new List<SampleTreeViewAdapter>{
-                    SampleTreeViewAdapter.Create(Sample.Create("BooleanNotifier"), true)
+                    SampleTreeViewAdapter.Create(Sample.Create("BooleanNotifier"), true),
+                    SampleTreeViewAdapter.Create(Sample.Create("BusyNotifier"), true),
                 })
             })
         });

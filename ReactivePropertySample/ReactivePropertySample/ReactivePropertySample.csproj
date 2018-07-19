@@ -210,6 +210,10 @@
       <Project>{70498835-59aa-44c4-805e-dfb56370af35}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Instances\Instances.csproj">
+      <Project>{38a077df-449c-4dac-8be4-f5690991646d}</Project>
+      <Name>Instances</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ViewModule\ViewModule.csproj">
       <Project>{67288d38-5d39-4ff6-b312-234e7b13b1a6}</Project>
       <Name>ViewModule</Name>

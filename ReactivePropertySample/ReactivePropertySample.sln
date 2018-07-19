@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModule", "ViewModule\Vi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{70498835-59AA-44C4-805E-DFB56370AF35}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Instances", "Instances\Instances.csproj", "{38A077DF-449C-4DAC-8BE4-F5690991646D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{70498835-59AA-44C4-805E-DFB56370AF35}.Release|x64.Build.0 = Release|Any CPU
 		{70498835-59AA-44C4-805E-DFB56370AF35}.Release|x86.ActiveCfg = Release|Any CPU
 		{70498835-59AA-44C4-805E-DFB56370AF35}.Release|x86.Build.0 = Release|Any CPU
+		{38A077DF-449C-4DAC-8BE4-F5690991646D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38A077DF-449C-4DAC-8BE4-F5690991646D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38A077DF-449C-4DAC-8BE4-F5690991646D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{38A077DF-449C-4DAC-8BE4-F5690991646D}.Debug|x64.Build.0 = Debug|Any CPU
+		{38A077DF-449C-4DAC-8BE4-F5690991646D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{38A077DF-449C-4DAC-8BE4-F5690991646D}.Debug|x86.Build.0 = Debug|Any CPU
+		{38A077DF-449C-4DAC-8BE4-F5690991646D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38A077DF-449C-4DAC-8BE4-F5690991646D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38A077DF-449C-4DAC-8BE4-F5690991646D}.Release|x64.ActiveCfg = Release|Any CPU
+		{38A077DF-449C-4DAC-8BE4-F5690991646D}.Release|x64.Build.0 = Release|Any CPU
+		{38A077DF-449C-4DAC-8BE4-F5690991646D}.Release|x86.ActiveCfg = Release|Any CPU
+		{38A077DF-449C-4DAC-8BE4-F5690991646D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

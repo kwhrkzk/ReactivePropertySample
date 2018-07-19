@@ -1,4 +1,6 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Domain.Services;
+using Instances.Services;
+using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
@@ -17,6 +19,7 @@ namespace ReactivePropertySample
         public void SetRegisterType(IUnityContainer container)
         {
             container.RegisterTypeForNavigation<MainView>(nameof(MainView));
+            container.RegisterType<ITakeLongTime, TakeLongTime>(new ContainerControlledLifetimeManager());
         }
 
         protected override IUnityContainer CreateContainer()

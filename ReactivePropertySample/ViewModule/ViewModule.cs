@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ViewModule.BooleanNotifier.Views;
+using ViewModule.BusyNotifier.Views;
 
 namespace ViewModule
 {
@@ -20,6 +21,7 @@ namespace ViewModule
         public void Initialize()
         {
             Container.RegisterTypeForNavigation<BooleanNotifierView>(nameof(BooleanNotifierView));
+            Container.RegisterTypeForNavigation<BusyNotifierView>(nameof(BusyNotifierView));
 
             Container.RegisterType<BindingErrorListener>(new ContainerControlledLifetimeManager());
 
