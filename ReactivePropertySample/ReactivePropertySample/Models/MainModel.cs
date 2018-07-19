@@ -20,6 +20,7 @@ namespace ReactivePropertySample.Models
                 SampleTreeViewAdapter.Create(Sample.Create("Notifier"), false, new List<SampleTreeViewAdapter>{
                     SampleTreeViewAdapter.Create(Sample.Create("BooleanNotifier"), true),
                     SampleTreeViewAdapter.Create(Sample.Create("BusyNotifier"), true),
+                    SampleTreeViewAdapter.Create(Sample.Create("CountNotifier"), true),
                 })
             })
         });

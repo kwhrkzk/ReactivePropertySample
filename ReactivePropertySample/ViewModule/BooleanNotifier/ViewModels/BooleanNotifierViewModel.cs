@@ -24,7 +24,7 @@ namespace ViewModule.BooleanNotifier.ViewModels
 
         public string Header => "BooleanNotifier";
 
-        public CountNotifier CountNotifier { get; } = new CountNotifier(999);
+        public Reactive.Bindings.Notifiers.CountNotifier CountNotifier { get; } = new Reactive.Bindings.Notifiers.CountNotifier(999);
         public Reactive.Bindings.Notifiers.BooleanNotifier BooleanNotifier { get; } = new Reactive.Bindings.Notifiers.BooleanNotifier();
         public ReactiveCommand ToggleCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ONCommand { get; } = new ReactiveCommand();
