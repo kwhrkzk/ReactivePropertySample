@@ -1,4 +1,5 @@
-﻿using Reactive.Bindings.Extensions;
+﻿using Prism.Events;
+using Reactive.Bindings.Extensions;
 using Reactive.Bindings.Notifiers;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModule.MessageBroker;
 
 namespace ReactivePropertySample
 {
@@ -18,12 +20,35 @@ namespace ReactivePropertySample
 
         public SampleTreeViewAdapter FirstItem => allItemRec(this).First(item => item.CanView);
 
-        public SampleTreeViewAdapterList(IEnumerable<SampleTreeViewAdapter> _list)
+        public SampleTreeViewAdapterList(IEventAggregator eventAggregator, IEnumerable<SampleTreeViewAdapter> _list)
             : base(_list)
         {
             allItemRec(this)
                 .Where(item => item.CanView)
                 .ToList().ForEach(onNextSelectedItem);
+
+            eventAggregator.GetEvent<SampleNameChangeEvent>()
+                .Subscribe(item => {
+                    var (ret, messageBrokerView) = getMessageBrokerView;
+                    if (ret)
+                        messageBrokerView.Name.Value = item.Name;
+
+                }).AddTo(DisposeCollection);
+
+            MessageBroker.Default.ToObservable<SampleNameChange>()
+                .Select(sampleNameChange => new { sampleNameChange, tpl = getMessageBrokerView })
+                .Where(a => a.tpl.Item1)
+                .Subscribe(a => a.tpl.Item2.Name.Value = a.sampleNameChange.Name)
+                .AddTo(DisposeCollection);
+        }
+
+        private ValueTuple<bool, SampleTreeViewAdapter> getMessageBrokerView
+        {
+            get
+            {
+                var tmp = allItemRec(this).FirstOrDefault(x => "MessageBrokerView".Equals(x.ViewName));
+                return (tmp == null) ? (false, null) : (true, tmp);
+            }
         }
 
         private IEnumerable<SampleTreeViewAdapter> allItemRec(IEnumerable<SampleTreeViewAdapter> item)

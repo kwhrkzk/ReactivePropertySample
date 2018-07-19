@@ -156,6 +156,11 @@
     <Compile Include="CountNotifier\Views\CountNotifierView.xaml.cs">
       <DependentUpon>CountNotifierView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MessageBroker\SampleNameChange.cs" />
+    <Compile Include="MessageBroker\ViewModels\MessageBrokerViewModel.cs" />
+    <Compile Include="MessageBroker\Views\MessageBrokerView.xaml.cs">
+      <DependentUpon>MessageBrokerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModule.cs" />
     <Page Include="BooleanNotifier\Views\BooleanNotifierView.xaml">
       <SubType>Designer</SubType>
@@ -166,6 +171,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CountNotifier\Views\CountNotifierView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MessageBroker\Views\MessageBrokerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

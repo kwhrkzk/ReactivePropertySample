@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="ViewModule.MessageBroker.Views.MessageBrokerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ViewModule.MessageBroker.Views"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+        <TextBlock Text="MessageBroker" DockPanel.Dock="Top"/>
+        <StackPanel DockPanel.Dock="Top">
+            <TextBox Width="150" Text="{Binding Path=MessageBrokerName.Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Top" HorizontalAlignment="Left"/>
+            <Button Margin="5" Content="MessageBrokerで発行" Command="{Binding MessageBrokerCommand}" DockPanel.Dock="Top" HorizontalAlignment="Left"/>
+            <Button Margin="5" Content="Prism.PubSubEventで発行" Command="{Binding PubSubEventCommand}" DockPanel.Dock="Top" HorizontalAlignment="Left"/>
+        </StackPanel>
+    </DockPanel>
+</UserControl>

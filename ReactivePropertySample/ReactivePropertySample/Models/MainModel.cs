@@ -1,4 +1,5 @@
 ﻿using Domain.ValueObjects;
+using Prism.Events;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
@@ -14,21 +15,24 @@ namespace ReactivePropertySample.Models
 {
     public class MainModel : IDisposable
     {
-        public SampleTreeViewAdapterList TreeViewList { get; } = new SampleTreeViewAdapterList
-        (
-            new List<SampleTreeViewAdapter>{SampleTreeViewAdapter.Create(Sample.Create("root"), false, new List<SampleTreeViewAdapter>{
-                SampleTreeViewAdapter.Create(Sample.Create("Notifier"), false, new List<SampleTreeViewAdapter>{
-                    SampleTreeViewAdapter.Create(Sample.Create("BooleanNotifier"), true),
-                    SampleTreeViewAdapter.Create(Sample.Create("BusyNotifier"), true),
-                    SampleTreeViewAdapter.Create(Sample.Create("CountNotifier"), true),
-                })
-            })
-        });
+        public SampleTreeViewAdapterList TreeViewList { get; }
 
         public ReactiveProperty<SampleTreeViewAdapter> IsSelected { get; }
 
-        public MainModel()
+        public MainModel(IEventAggregator _eventAggregator)
         {
+            TreeViewList = new SampleTreeViewAdapterList(
+                _eventAggregator,
+                new ReactiveCollection<SampleTreeViewAdapter>{SampleTreeViewAdapter.Create(Sample.Create("root"), false, new ReactiveCollection<SampleTreeViewAdapter>{
+                    SampleTreeViewAdapter.Create(Sample.Create("Notifier"), false, new ReactiveCollection<SampleTreeViewAdapter>{
+                        SampleTreeViewAdapter.Create(Sample.Create("BooleanNotifier"), true),
+                        SampleTreeViewAdapter.Create(Sample.Create("BusyNotifier"), true),
+                        SampleTreeViewAdapter.Create(Sample.Create("CountNotifier"), true),
+                        SampleTreeViewAdapter.Create(Sample.Create("MessageBroker"), true),
+                    })
+                })
+            });
+
             IsSelected = TreeViewList.IsSelected.Where(item => item != null).ToReactiveProperty().AddTo(DisposeCollection);
         }
 
