@@ -26,7 +26,8 @@ namespace ReactivePropertySample
         public ReactiveCollection<SampleTreeViewAdapter> Children { get; }
 
         public bool CanView { get; }
-        public string ViewName => CanView ? sample.Name + "View" : "";
+        public string ViewName => CanView ? sample.ViewNameName : "";
+        public ViewName SampleViewName => sample.ViewName;
 
         public ReactivePropertySlim<bool> IsSelected { get; } = new ReactivePropertySlim<bool>(false);
 
@@ -35,7 +36,7 @@ namespace ReactivePropertySample
             sample = _sample;
             CanView = _canView;
             Children = _children ?? new ReactiveCollection<SampleTreeViewAdapter>();
-            Name = new ReactiveProperty<string>(sample.Name).AddTo(DisposeCollection);
+            Name = new ReactiveProperty<string>(sample.SampleNameName).AddTo(DisposeCollection);
         }
 
         private CompositeDisposable DisposeCollection = new CompositeDisposable();

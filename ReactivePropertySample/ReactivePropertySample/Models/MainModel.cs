@@ -23,16 +23,21 @@ namespace ReactivePropertySample.Models
         {
             TreeViewList = new SampleTreeViewAdapterList(
                 _eventAggregator,
-                new ReactiveCollection<SampleTreeViewAdapter>{SampleTreeViewAdapter.Create(Sample.Create("root"), false, new ReactiveCollection<SampleTreeViewAdapter>{
-                    SampleTreeViewAdapter.Create(Sample.Create("Notifier"), false, new ReactiveCollection<SampleTreeViewAdapter>{
-                        SampleTreeViewAdapter.Create(Sample.Create("BooleanNotifier"), true),
-                        SampleTreeViewAdapter.Create(Sample.Create("BusyNotifier"), true),
-                        SampleTreeViewAdapter.Create(Sample.Create("CountNotifier"), true),
-                        SampleTreeViewAdapter.Create(Sample.Create("MessageBroker"), true),
-                        SampleTreeViewAdapter.Create(Sample.Create("ScheduledNotifier"), true),
+                new ReactiveCollection<SampleTreeViewAdapter>{SampleTreeViewAdapter.Create(Sample.Create("root"), false,
+                    new ReactiveCollection<SampleTreeViewAdapter>{
+                        SampleTreeViewAdapter.Create(Sample.Create("Notifiers"), false,
+                            new ReactiveCollection<SampleTreeViewAdapter>{
+                                SampleTreeViewAdapter.Create(Sample.Create("BooleanNotifier"), true),
+                                SampleTreeViewAdapter.Create(Sample.Create("BusyNotifier"), true),
+                                SampleTreeViewAdapter.Create(Sample.Create("CountNotifier"), true),
+                                SampleTreeViewAdapter.Create(Sample.Create("MessageBroker"), true),
+                                SampleTreeViewAdapter.Create(Sample.Create("ScheduledNotifier"), true),
+                            }
+                        ),
+                        SampleTreeViewAdapter.Create(Sample.Create("ReactivePropertySlim"), true)
                     })
-                })
-            });
+                }
+            );
 
             IsSelected = TreeViewList.IsSelected.Where(item => item != null).ToReactiveProperty().AddTo(DisposeCollection);
         }

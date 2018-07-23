@@ -161,6 +161,11 @@
     <Compile Include="MessageBroker\Views\MessageBrokerView.xaml.cs">
       <DependentUpon>MessageBrokerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ReactivePropertySlim\Models\ReactivePropertySlimModel.cs" />
+    <Compile Include="ReactivePropertySlim\ViewModels\ReactivePropertySlimViewModel.cs" />
+    <Compile Include="ReactivePropertySlim\Views\ReactivePropertySlimView.xaml.cs">
+      <DependentUpon>ReactivePropertySlimView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ScheduledNotifier\Models\ScheduledNotifierModel.cs" />
     <Compile Include="ScheduledNotifier\ViewModels\ScheduledNotifierViewModel.cs" />
     <Compile Include="ScheduledNotifier\Views\ScheduledNotifierView.xaml.cs">
@@ -180,6 +185,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MessageBroker\Views\MessageBrokerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReactivePropertySlim\Views\ReactivePropertySlimView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

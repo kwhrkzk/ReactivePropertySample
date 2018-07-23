@@ -8,14 +8,23 @@ namespace Domain.ValueObjects
 {
     public class Sample : ValueObject
     {
-        public static Sample Create(string _name) => new Sample(_name);
-        public string Name { get; }
+        public static Sample Create(string _sampleName, string _viewName) => new Sample(_sampleName, _viewName);
+        public static Sample Create(string _sampleName) => new Sample(_sampleName, _sampleName + "View");
+        public SampleName SampleName { get; }
+        public string SampleNameName => SampleName.Name;
+        public ViewName ViewName { get; }
+        public string ViewNameName => ViewName.Name;
 
-        private Sample(string _name) => Name = _name;
+        private Sample(string _sampleName, string _viewName)
+        {
+            SampleName = SampleName.Create(_sampleName);
+            ViewName = ViewName.Create(_viewName);
+        }
 
         protected override IEnumerable<object> GetAtomicValues()
         {
-            yield return Name;
+            yield return SampleName;
+            yield return ViewName;
         }
     }
 }

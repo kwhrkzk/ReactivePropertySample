@@ -1,5 +1,4 @@
 ﻿using Domain.ValueObjects;
-using Prism.Events;
 using Prism.Regions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -12,10 +11,11 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModule.ReactivePropertySlim.Models;
 
-namespace ViewModule.MessageBroker.ViewModels
+namespace ViewModule.ReactivePropertySlim.ViewModels
 {
-    public class MessageBrokerViewModel : IConfirmNavigationRequest, IRegionMemberLifetime, IDisposable, INotifyPropertyChanged
+    public class ReactivePropertySlimViewModel : IConfirmNavigationRequest, IRegionMemberLifetime, IDisposable, INotifyPropertyChanged
     {
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
@@ -23,15 +23,39 @@ namespace ViewModule.MessageBroker.ViewModels
 
         public bool KeepAlive => false;
 
-        public ReactivePropertySlim<string> MessageBrokerName { get; } = new ReactivePropertySlim<string>("変更後の名前");
-        public ReactiveCommand MessageBrokerCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand PubSubEventCommand { get; } = new ReactiveCommand();
+        public ReactiveProperty<string> SampleNameInput { get; }
+        public ReactiveCommand SampleNameChangeCommand { get; } = new ReactiveCommand();
 
-        public MessageBrokerViewModel(IEventAggregator eventAggregator)
+        public ReactivePropertySlimModel Model { get; }
+
+        public ReactivePropertySlimViewModel(ReactivePropertySlimModel _model)
         {
-            MessageBrokerCommand.Subscribe(_ => Reactive.Bindings.Notifiers.MessageBroker.Default.Publish<SampleNameChange>(new SampleNameChange(SampleName.Create(MessageBrokerName.Value), ViewName.Create("MessageBrokerView")))).AddTo(DisposeCollection);
-            PubSubEventCommand.Subscribe(_ => eventAggregator.GetEvent<SampleNameChangeEvent>().Publish(new SampleNameChange(SampleName.Create(MessageBrokerName.Value), ViewName.Create("MessageBrokerView")))).AddTo(DisposeCollection);
+            Model = _model;
+
+            SampleNameInput = Model.SampleName.Select(item => item.Name)
+                .ToReactiveProperty("", ReactivePropertyMode.IgnoreInitialValidationError | ReactivePropertyMode.Default)
+                .SetValidateNotifyError((Func<string, string>)(SampleNameInputValidate))
+                .AddTo(DisposeCollection);
+
+            SampleNameChangeCommand = Model.SampleName.Select(item => item.IsNotNullObject).ToReactiveCommand().AddTo(DisposeCollection);
+            SampleNameChangeCommand.Subscribe(SampleNameChange).AddTo(DisposeCollection);
         }
+
+        private string SampleNameInputValidate(string str)
+        {
+            try
+            {
+                Model.SampleName.Value = SampleName.Create(str);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Model.SampleName.Value = SampleName.NullObject;
+                return ex.Message;
+            }
+        }
+
+        private void SampleNameChange() => Model.SampleNameChange();
 
         private CompositeDisposable DisposeCollection = new CompositeDisposable();
         #region IDisposable Support

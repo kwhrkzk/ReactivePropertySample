@@ -28,14 +28,14 @@ namespace ViewModule.ScheduledNotifier.ViewModels
         public ReactiveCommand TakeLongTimeCommand { get; }
         public Reactive.Bindings.Notifiers.BusyNotifier BusyNotifier { get; } = new Reactive.Bindings.Notifiers.BusyNotifier();
         public Reactive.Bindings.Notifiers.ScheduledNotifier<int> ScheduledNotifier { get; } = new Reactive.Bindings.Notifiers.ScheduledNotifier<int>();
-        public ReactiveProperty<int> Progress { get; }
+        public ReadOnlyReactivePropertySlim<int> Progress { get; }
 
         public ScheduledNotifierViewModel(ScheduledNotifierModel _model)
         {
             Model = _model;
 
             TakeLongTimeCommand = BusyNotifier.Select(b => !b).ToReactiveCommand().AddTo(DisposeCollection);
-            Progress = ScheduledNotifier.ToReactiveProperty().AddTo(DisposeCollection);
+            Progress = ScheduledNotifier.ToReadOnlyReactivePropertySlim().AddTo(DisposeCollection);
 
             TakeLongTimeCommand.Subscribe(TakeLongTimeAsync).AddTo(DisposeCollection);
         }

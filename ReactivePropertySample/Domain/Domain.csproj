@@ -80,7 +80,9 @@
     <Compile Include="Services\ITakeLongTime.cs" />
     <Compile Include="ValueObjects\ExecutionTime.cs" />
     <Compile Include="ValueObjects\Sample.cs" />
+    <Compile Include="ValueObjects\SampleName.cs" />
     <Compile Include="ValueObjects\ValueObject.cs" />
+    <Compile Include="ValueObjects\ViewName.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -14,13 +14,20 @@ namespace ViewModule.MessageBroker
 
     public class SampleNameChange : ValueObject
     {
-        public string Name { get; }
+        public SampleName SampleName { get; }
+        public ViewName ViewName { get; }
+        public string SampleNameName => SampleName.Name;
 
-        public SampleNameChange(string _name) => Name = _name;
+        public SampleNameChange(SampleName _sampleName, ViewName _viewName)
+        {
+            SampleName = _sampleName;
+            ViewName = _viewName;
+        }
 
         protected override IEnumerable<object> GetAtomicValues()
         {
-            yield return Name;
+            yield return SampleName;
+            yield return ViewName;
         }
     }
 }

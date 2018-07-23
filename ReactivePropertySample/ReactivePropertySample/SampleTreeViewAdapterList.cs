@@ -1,4 +1,5 @@
-﻿using Prism.Events;
+﻿using Domain.ValueObjects;
+using Prism.Events;
 using Reactive.Bindings.Extensions;
 using Reactive.Bindings.Notifiers;
 using System;
@@ -29,26 +30,23 @@ namespace ReactivePropertySample
 
             eventAggregator.GetEvent<SampleNameChangeEvent>()
                 .Subscribe(item => {
-                    var (ret, messageBrokerView) = getMessageBrokerView;
+                    var (ret, messageBrokerView) = getSampleTreeViewAdapter(item.ViewName);
                     if (ret)
-                        messageBrokerView.Name.Value = item.Name;
+                        messageBrokerView.Name.Value = item.SampleNameName;
 
                 }).AddTo(DisposeCollection);
 
             MessageBroker.Default.ToObservable<SampleNameChange>()
-                .Select(sampleNameChange => new { sampleNameChange, tpl = getMessageBrokerView })
+                .Select(sampleNameChange => new { sampleNameChange, tpl = getSampleTreeViewAdapter(sampleNameChange.ViewName) })
                 .Where(a => a.tpl.Item1)
-                .Subscribe(a => a.tpl.Item2.Name.Value = a.sampleNameChange.Name)
+                .Subscribe(a => a.tpl.Item2.Name.Value = a.sampleNameChange.SampleNameName)
                 .AddTo(DisposeCollection);
         }
 
-        private ValueTuple<bool, SampleTreeViewAdapter> getMessageBrokerView
+        private ValueTuple<bool, SampleTreeViewAdapter> getSampleTreeViewAdapter(ViewName _viewName)
         {
-            get
-            {
-                var tmp = allItemRec(this).FirstOrDefault(x => "MessageBrokerView".Equals(x.ViewName));
-                return (tmp == null) ? (false, null) : (true, tmp);
-            }
+            var tmp = allItemRec(this).FirstOrDefault(x => _viewName.Equals(x.SampleViewName));
+            return (tmp == null) ? (false, null) : (true, tmp);
         }
 
         private IEnumerable<SampleTreeViewAdapter> allItemRec(IEnumerable<SampleTreeViewAdapter> item)
