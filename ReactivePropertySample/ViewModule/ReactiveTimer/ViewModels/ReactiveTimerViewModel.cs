@@ -1,5 +1,4 @@
-﻿using Domain.ValueObjects;
-using Prism.Regions;
+﻿using Prism.Regions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
@@ -7,15 +6,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ViewModule.ReactivePropertySlim.Models;
+using ViewModule.ReactiveTimer.Models;
 
-namespace ViewModule.ReactivePropertySlim.ViewModels
+namespace ViewModule.ReactiveTimer.ViewModels
 {
-    public class ReactivePropertySlimViewModel : IConfirmNavigationRequest, IRegionMemberLifetime, IDisposable, INotifyPropertyChanged
+    public class ReactiveTimerViewModel : IConfirmNavigationRequest, IRegionMemberLifetime, IDisposable, INotifyPropertyChanged
     {
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
@@ -23,39 +23,37 @@ namespace ViewModule.ReactivePropertySlim.ViewModels
 
         public bool KeepAlive => false;
 
-        public ReactiveProperty<string> SampleNameInput { get; }
-        public ReactiveCommand SampleNameChangeCommand { get; } = new ReactiveCommand();
+        public ReadOnlyReactivePropertySlim<long> ReadOnlyReactiveTimer { get; }
+        public ReactiveCommand StartCommand { get; }
+        public ReactiveCommand PauseCommand { get; }
+        public ReactiveCommand StopCommand { get; }
 
-        public ReactivePropertySlimModel Model { get; }
+        public ReactiveTimerModel Model { get; }
 
-        public ReactivePropertySlimViewModel(ReactivePropertySlimModel _model)
+        public ReactiveTimerViewModel(ReactiveTimerModel _model)
         {
             Model = _model.AddTo(DisposeCollection);
 
-            SampleNameInput = Model.SampleName.Select(item => item.Name)
-                .ToReactiveProperty("", ReactivePropertyMode.IgnoreInitialValidationError | ReactivePropertyMode.Default)
-                .SetValidateNotifyError((Func<string, string>)(SampleNameInputValidate))
+            ReadOnlyReactiveTimer = 
+                Observable.Merge(
+                    Model.ReactiveTimer, 
+                    Model.ChangeStop().Select(_ => (long)0)
+                ).ToReadOnlyReactivePropertySlim()
                 .AddTo(DisposeCollection);
 
-            SampleNameChangeCommand = Model.SampleName.Select(item => item.IsNotNullObject).ToReactiveCommand().AddTo(DisposeCollection);
-            SampleNameChangeCommand.Subscribe(SampleNameChange).AddTo(DisposeCollection);
+            StartCommand = Model.CanStart().ToReactiveCommand().AddTo(DisposeCollection);
+            StartCommand.Subscribe(start).AddTo(DisposeCollection);
+
+            PauseCommand = Model.CanPause().ToReactiveCommand().AddTo(DisposeCollection);
+            PauseCommand.Subscribe(pause).AddTo(DisposeCollection);
+
+            StopCommand = Model.CanStop().ToReactiveCommand().AddTo(DisposeCollection);
+            StopCommand.Subscribe(stop).AddTo(DisposeCollection);
         }
 
-        private string SampleNameInputValidate(string str)
-        {
-            try
-            {
-                Model.SampleName.Value = SampleName.Create(str);
-                return null;
-            }
-            catch (Exception ex)
-            {
-                Model.SampleName.Value = SampleName.NullObject;
-                return ex.Message;
-            }
-        }
-
-        private void SampleNameChange() => Model.SampleNameChange();
+        private void start() => Model.Start();
+        private void pause() => Model.Pause();
+        private void stop() => Model.Stop();
 
         private CompositeDisposable DisposeCollection = new CompositeDisposable();
         #region IDisposable Support

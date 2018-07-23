@@ -34,7 +34,8 @@ namespace ReactivePropertySample.Models
                                 SampleTreeViewAdapter.Create(Sample.Create("ScheduledNotifier"), true),
                             }
                         ),
-                        SampleTreeViewAdapter.Create(Sample.Create("ReactivePropertySlim"), true)
+                        SampleTreeViewAdapter.Create(Sample.Create("ReactivePropertySlim"), true),
+                        SampleTreeViewAdapter.Create(Sample.Create("ReactiveTimer"), true)
                     })
                 }
             );

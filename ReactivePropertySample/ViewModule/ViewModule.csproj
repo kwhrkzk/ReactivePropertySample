@@ -166,6 +166,11 @@
     <Compile Include="ReactivePropertySlim\Views\ReactivePropertySlimView.xaml.cs">
       <DependentUpon>ReactivePropertySlimView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ReactiveTimer\Models\ReactiveTimerModel.cs" />
+    <Compile Include="ReactiveTimer\ViewModels\ReactiveTimerViewModel.cs" />
+    <Compile Include="ReactiveTimer\Views\ReactiveTimerView.xaml.cs">
+      <DependentUpon>ReactiveTimerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ScheduledNotifier\Models\ScheduledNotifierModel.cs" />
     <Compile Include="ScheduledNotifier\ViewModels\ScheduledNotifierViewModel.cs" />
     <Compile Include="ScheduledNotifier\Views\ScheduledNotifierView.xaml.cs">
@@ -189,6 +194,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ReactivePropertySlim\Views\ReactivePropertySlimView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReactiveTimer\Views\ReactiveTimerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

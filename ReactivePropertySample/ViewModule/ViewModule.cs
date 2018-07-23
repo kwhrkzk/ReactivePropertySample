@@ -12,6 +12,7 @@ using ViewModule.BusyNotifier.Views;
 using ViewModule.CountNotifier.Views;
 using ViewModule.MessageBroker.Views;
 using ViewModule.ReactivePropertySlim.Views;
+using ViewModule.ReactiveTimer.Views;
 using ViewModule.ScheduledNotifier.Views;
 
 namespace ViewModule
@@ -30,6 +31,7 @@ namespace ViewModule
             Container.RegisterTypeForNavigation<MessageBrokerView>(nameof(MessageBrokerView));
             Container.RegisterTypeForNavigation<ScheduledNotifierView>(nameof(ScheduledNotifierView));
             Container.RegisterTypeForNavigation<ReactivePropertySlimView>(nameof(ReactivePropertySlimView));
+            Container.RegisterTypeForNavigation<ReactiveTimerView>(nameof(ReactiveTimerView));
 
             Container.RegisterType<BindingErrorListener>(new ContainerControlledLifetimeManager());
 
