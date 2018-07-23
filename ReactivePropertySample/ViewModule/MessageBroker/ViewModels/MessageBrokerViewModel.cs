@@ -23,6 +23,8 @@ namespace ViewModule.MessageBroker.ViewModels
 
         public bool KeepAlive => false;
 
+        public ReactivePropertySlim<string> Title { get; } = new ReactivePropertySlim<string>("MessageBroker");
+
         public ReactivePropertySlim<string> MessageBrokerName { get; } = new ReactivePropertySlim<string>("変更後の名前");
         public ReactiveCommand MessageBrokerCommand { get; } = new ReactiveCommand();
         public ReactiveCommand PubSubEventCommand { get; } = new ReactiveCommand();

@@ -1,4 +1,5 @@
-﻿using Prism.Regions;
+﻿using Domain.ValueObjects;
+using Prism.Regions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactivePropertySample.Models;
@@ -33,7 +34,13 @@ namespace ReactivePropertySample.ViewModels
             RegionManager = _regionManager;
             Model = _model.AddTo(DisposeCollection);
 
-            Model.IsSelected.Skip(1).Subscribe(item => RegionManager.RequestNavigate("ContentRegion", item.ViewName)).AddTo(DisposeCollection);
+            Model.IsSelected.Skip(1).Subscribe(item =>
+            {
+                var param = new NavigationParameters();
+                param.Add(nameof(Sample), item.Sample);
+
+                RegionManager.RequestNavigate("ContentRegion", item.ViewName, param);
+            }).AddTo(DisposeCollection);
         }
 
         private CompositeDisposable DisposeCollection = new CompositeDisposable();

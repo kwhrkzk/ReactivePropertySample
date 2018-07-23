@@ -1,4 +1,5 @@
-﻿using Prism.Interactivity.InteractionRequest;
+﻿using Domain.ValueObjects;
+using Prism.Interactivity.InteractionRequest;
 using Prism.Regions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -23,30 +24,25 @@ namespace ViewModule.ScheduledNotifier.ViewModels
 
         public bool KeepAlive => false;
 
-        private ScheduledNotifierModel Model { get; }
+        public ReactivePropertySlim<string> Title { get; } = new ReactivePropertySlim<string>("ScheduledNotifier");
 
-        public ReactiveCommand TakeLongTimeCommand { get; }
+        public AsyncReactiveCommand TakeLongTimeCommand { get; } = new AsyncReactiveCommand();
         public Reactive.Bindings.Notifiers.BusyNotifier BusyNotifier { get; } = new Reactive.Bindings.Notifiers.BusyNotifier();
         public Reactive.Bindings.Notifiers.ScheduledNotifier<int> ScheduledNotifier { get; } = new Reactive.Bindings.Notifiers.ScheduledNotifier<int>();
         public ReadOnlyReactivePropertySlim<int> Progress { get; }
 
+        public ScheduledNotifierModel Model { get; }
+
         public ScheduledNotifierViewModel(ScheduledNotifierModel _model)
         {
-            Model = _model;
+            Model = _model.AddTo(DisposeCollection);
 
-            TakeLongTimeCommand = BusyNotifier.Select(b => !b).ToReactiveCommand().AddTo(DisposeCollection);
             Progress = ScheduledNotifier.ToReadOnlyReactivePropertySlim().AddTo(DisposeCollection);
 
             TakeLongTimeCommand.Subscribe(TakeLongTimeAsync).AddTo(DisposeCollection);
         }
 
-        private async void TakeLongTimeAsync()
-        {
-            using (BusyNotifier.ProcessStart())
-            {
-                await Task.Run(() => Model.TakeLongTime(ScheduledNotifier));
-            }
-        }
+        private async Task TakeLongTimeAsync() => await Task.Run(() => Model.TakeLongTime(ScheduledNotifier));
 
         private CompositeDisposable DisposeCollection = new CompositeDisposable();
         #region IDisposable Support
@@ -69,9 +65,9 @@ namespace ViewModule.ScheduledNotifier.ViewModels
         #endregion
 
         public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback) => continuationCallback(true);
-        public void OnNavigatedTo(NavigationContext navigationContext) { }
+        public void OnNavigatedTo(NavigationContext navigationContext) => Title.Value = (navigationContext.Parameters[nameof(Sample)] as Sample).SampleNameName;
 
         public bool IsNavigationTarget(NavigationContext navigationContext) => true;
-        public void OnNavigatedFrom(NavigationContext navigationContext) => Dispose();
+        public void OnNavigatedFrom(NavigationContext navigationContext) { }
     }
 }

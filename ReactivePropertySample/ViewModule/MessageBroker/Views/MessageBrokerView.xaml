@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <TextBlock Text="MessageBroker" DockPanel.Dock="Top"/>
+        <TextBlock Text="{Binding Title.Value}" DockPanel.Dock="Top"/>
         <StackPanel DockPanel.Dock="Top">
             <TextBox Width="150" Text="{Binding Path=MessageBrokerName.Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Top" HorizontalAlignment="Left"/>
             <Button Margin="5" Content="MessageBrokerで発行" Command="{Binding MessageBrokerCommand}" DockPanel.Dock="Top" HorizontalAlignment="Left"/>

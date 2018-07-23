@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel LastChildFill="False">
-        <TextBlock Text="ReactivePropertySlim" DockPanel.Dock="Top"/>
+        <TextBlock Text="{Binding Title.Value}" DockPanel.Dock="Top"/>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <TextBlock Width="150" Text="{Binding Path=Model.SampleName.Value}" DockPanel.Dock="Top" HorizontalAlignment="Left"/>
         </StackPanel>

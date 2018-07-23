@@ -22,6 +22,8 @@ namespace ViewModule.BusyNotifier.ViewModels
 
         public bool KeepAlive => false;
 
+        public ReactivePropertySlim<string> Title { get; } = new ReactivePropertySlim<string>("BusyNotifier");
+
         public Reactive.Bindings.Notifiers.BusyNotifier BusyNotifier { get; } = new Reactive.Bindings.Notifiers.BusyNotifier();
         public ReactiveProperty<string> BusyNotifierStatus { get; }
         public ReactiveCommand TakeLongTimeCommand { get; }

@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <TextBlock Text="ReactiveTimer" DockPanel.Dock="Top"/>
+        <TextBlock Text="{Binding Title.Value}" DockPanel.Dock="Top"/>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" DockPanel.Dock="Top">
             <TextBlock Text="時間:" />
             <TextBlock Text="{Binding ReadOnlyReactiveTimer.Value}" />

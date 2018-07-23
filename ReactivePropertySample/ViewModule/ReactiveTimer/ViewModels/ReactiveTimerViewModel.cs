@@ -23,6 +23,8 @@ namespace ViewModule.ReactiveTimer.ViewModels
 
         public bool KeepAlive => false;
 
+        public ReactivePropertySlim<string> Title { get; } = new ReactivePropertySlim<string>("ReactiveTimer");
+
         public ReadOnlyReactivePropertySlim<long> ReadOnlyReactiveTimer { get; }
         public ReactiveCommand StartCommand { get; }
         public ReactiveCommand PauseCommand { get; }

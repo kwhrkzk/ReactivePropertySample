@@ -23,6 +23,8 @@ namespace ViewModule.CountNotifier.ViewModels
 
         public bool KeepAlive => false;
 
+        public ReactivePropertySlim<string> Title { get; } = new ReactivePropertySlim<string>("CountNotifier");
+
         public Reactive.Bindings.Notifiers.CountNotifier CountNotifier { get; } = new Reactive.Bindings.Notifiers.CountNotifier(50);
         public ReactiveProperty<string> CountNotifierStatus { get; }
         public ReactiveProperty<int> CountNotifierCount { get; }

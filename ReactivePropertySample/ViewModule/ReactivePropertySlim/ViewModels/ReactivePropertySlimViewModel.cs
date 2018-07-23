@@ -23,6 +23,8 @@ namespace ViewModule.ReactivePropertySlim.ViewModels
 
         public bool KeepAlive => false;
 
+        public ReactivePropertySlim<string> Title { get; } = new ReactivePropertySlim<string>("ReactivePropertySlim");
+
         public ReactiveProperty<string> SampleNameInput { get; }
         public ReactiveCommand SampleNameChangeCommand { get; } = new ReactiveCommand();
 
