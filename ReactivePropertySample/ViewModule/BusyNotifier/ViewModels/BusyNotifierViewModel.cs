@@ -22,8 +22,6 @@ namespace ViewModule.BusyNotifier.ViewModels
 
         public bool KeepAlive => false;
 
-        public string Header => "BusyNotifier";
-
         public Reactive.Bindings.Notifiers.BusyNotifier BusyNotifier { get; } = new Reactive.Bindings.Notifiers.BusyNotifier();
         public ReactiveProperty<string> BusyNotifierStatus { get; }
         public ReactiveCommand TakeLongTimeCommand { get; }
@@ -55,11 +53,10 @@ namespace ViewModule.BusyNotifier.ViewModels
 
         private async void OtherTakeLongTimeAsync()
         {
-            using (this.BusyNotifier.ProcessStart())
+            using (BusyNotifier.ProcessStart())
             {
                 await Task.Run(() => Model.TakeLongTimeTask2());
             }
-
         }
 
         private CompositeDisposable DisposeCollection = new CompositeDisposable();

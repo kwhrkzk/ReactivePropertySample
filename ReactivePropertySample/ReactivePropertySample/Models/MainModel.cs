@@ -29,6 +29,7 @@ namespace ReactivePropertySample.Models
                         SampleTreeViewAdapter.Create(Sample.Create("BusyNotifier"), true),
                         SampleTreeViewAdapter.Create(Sample.Create("CountNotifier"), true),
                         SampleTreeViewAdapter.Create(Sample.Create("MessageBroker"), true),
+                        SampleTreeViewAdapter.Create(Sample.Create("ScheduledNotifier"), true),
                     })
                 })
             });

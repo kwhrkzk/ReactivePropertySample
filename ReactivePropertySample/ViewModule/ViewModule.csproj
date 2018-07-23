@@ -161,6 +161,11 @@
     <Compile Include="MessageBroker\Views\MessageBrokerView.xaml.cs">
       <DependentUpon>MessageBrokerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ScheduledNotifier\Models\ScheduledNotifierModel.cs" />
+    <Compile Include="ScheduledNotifier\ViewModels\ScheduledNotifierViewModel.cs" />
+    <Compile Include="ScheduledNotifier\Views\ScheduledNotifierView.xaml.cs">
+      <DependentUpon>ScheduledNotifierView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModule.cs" />
     <Page Include="BooleanNotifier\Views\BooleanNotifierView.xaml">
       <SubType>Designer</SubType>
@@ -175,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MessageBroker\Views\MessageBrokerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ScheduledNotifier\Views\ScheduledNotifierView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

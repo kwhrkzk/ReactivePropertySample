@@ -1,4 +1,4 @@
-﻿using Prism.Events;
+﻿using Prism.Interactivity.InteractionRequest;
 using Prism.Regions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -11,10 +11,11 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModule.ScheduledNotifier.Models;
 
-namespace ViewModule.MessageBroker.ViewModels
+namespace ViewModule.ScheduledNotifier.ViewModels
 {
-    public class MessageBrokerViewModel : IConfirmNavigationRequest, IRegionMemberLifetime, IDisposable, INotifyPropertyChanged
+    public class ScheduledNotifierViewModel : IConfirmNavigationRequest, IRegionMemberLifetime, IDisposable, INotifyPropertyChanged
     {
 #pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
@@ -22,14 +23,29 @@ namespace ViewModule.MessageBroker.ViewModels
 
         public bool KeepAlive => false;
 
-        public ReactivePropertySlim<string> MessageBrokerName { get; } = new ReactivePropertySlim<string>("変更後の名前");
-        public ReactiveCommand MessageBrokerCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand PubSubEventCommand { get; } = new ReactiveCommand();
+        private ScheduledNotifierModel Model { get; }
 
-        public MessageBrokerViewModel(IEventAggregator eventAggregator)
+        public ReactiveCommand TakeLongTimeCommand { get; }
+        public Reactive.Bindings.Notifiers.BusyNotifier BusyNotifier { get; } = new Reactive.Bindings.Notifiers.BusyNotifier();
+        public Reactive.Bindings.Notifiers.ScheduledNotifier<int> ScheduledNotifier { get; } = new Reactive.Bindings.Notifiers.ScheduledNotifier<int>();
+        public ReactiveProperty<int> Progress { get; }
+
+        public ScheduledNotifierViewModel(ScheduledNotifierModel _model)
         {
-            MessageBrokerCommand.Subscribe(_ => Reactive.Bindings.Notifiers.MessageBroker.Default.Publish<SampleNameChange>(new SampleNameChange(MessageBrokerName.Value))).AddTo(DisposeCollection);
-            PubSubEventCommand.Subscribe(_ => eventAggregator.GetEvent<SampleNameChangeEvent>().Publish(new SampleNameChange(MessageBrokerName.Value))).AddTo(DisposeCollection);
+            Model = _model;
+
+            TakeLongTimeCommand = BusyNotifier.Select(b => !b).ToReactiveCommand().AddTo(DisposeCollection);
+            Progress = ScheduledNotifier.ToReactiveProperty().AddTo(DisposeCollection);
+
+            TakeLongTimeCommand.Subscribe(TakeLongTimeAsync).AddTo(DisposeCollection);
+        }
+
+        private async void TakeLongTimeAsync()
+        {
+            using (BusyNotifier.ProcessStart())
+            {
+                await Task.Run(() => Model.TakeLongTime(ScheduledNotifier));
+            }
         }
 
         private CompositeDisposable DisposeCollection = new CompositeDisposable();
