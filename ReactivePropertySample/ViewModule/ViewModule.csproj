@@ -166,6 +166,10 @@
       <DependentUpon>PairwiseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="RandomProvider.cs" />
+    <Compile Include="ReactivePropertyMode\ViewModels\ReactivePropertyModeViewModel.cs" />
+    <Compile Include="ReactivePropertyMode\Views\ReactivePropertyModeView.xaml.cs">
+      <DependentUpon>ReactivePropertyModeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReactivePropertySlim\Models\ReactivePropertySlimModel.cs" />
     <Compile Include="ReactivePropertySlim\ViewModels\ReactivePropertySlimViewModel.cs" />
     <Compile Include="ReactivePropertySlim\Views\ReactivePropertySlimView.xaml.cs">
@@ -199,6 +203,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pairwise\Views\PairwiseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReactivePropertyMode\Views\ReactivePropertyModeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

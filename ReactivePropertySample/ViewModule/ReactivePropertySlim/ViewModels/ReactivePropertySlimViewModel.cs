@@ -35,7 +35,7 @@ namespace ViewModule.ReactivePropertySlim.ViewModels
             Model = _model.AddTo(DisposeCollection);
 
             SampleNameInput = Model.SampleName.Select(item => item.Name)
-                .ToReactiveProperty("", ReactivePropertyMode.IgnoreInitialValidationError | ReactivePropertyMode.Default)
+                .ToReactiveProperty("", Reactive.Bindings.ReactivePropertyMode.IgnoreInitialValidationError | Reactive.Bindings.ReactivePropertyMode.Default)
                 .SetValidateNotifyError((Func<string, string>)(SampleNameInputValidate))
                 .AddTo(DisposeCollection);
 
