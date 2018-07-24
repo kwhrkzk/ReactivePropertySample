@@ -36,7 +36,8 @@ namespace ReactivePropertySample.Models
                         ),
                         SampleTreeViewAdapter.Create(Sample.Create("ReactivePropertySlim"), true),
                         SampleTreeViewAdapter.Create(Sample.Create("ReactiveTimer"), true),
-                        SampleTreeViewAdapter.Create(Sample.Create("AsyncReactiveCommand", "ScheduledNotifierView"), true)
+                        SampleTreeViewAdapter.Create(Sample.Create("AsyncReactiveCommand", "ScheduledNotifierView"), true),
+                        SampleTreeViewAdapter.Create(Sample.Create("Pairwise"), true),
                     })
                 }
             );

@@ -161,6 +161,11 @@
     <Compile Include="MessageBroker\Views\MessageBrokerView.xaml.cs">
       <DependentUpon>MessageBrokerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pairwise\ViewModels\PairwiseViewModel.cs" />
+    <Compile Include="Pairwise\Views\PairwiseView.xaml.cs">
+      <DependentUpon>PairwiseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RandomProvider.cs" />
     <Compile Include="ReactivePropertySlim\Models\ReactivePropertySlimModel.cs" />
     <Compile Include="ReactivePropertySlim\ViewModels\ReactivePropertySlimViewModel.cs" />
     <Compile Include="ReactivePropertySlim\Views\ReactivePropertySlimView.xaml.cs">
@@ -190,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MessageBroker\Views\MessageBrokerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pairwise\Views\PairwiseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
