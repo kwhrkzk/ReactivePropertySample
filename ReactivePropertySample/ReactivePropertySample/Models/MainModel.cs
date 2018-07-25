@@ -39,6 +39,7 @@ namespace ReactivePropertySample.Models
                         SampleTreeViewAdapter.Create(Sample.Create("AsyncReactiveCommand", "ScheduledNotifierView"), true),
                         SampleTreeViewAdapter.Create(Sample.Create("Pairwise"), true),
                         SampleTreeViewAdapter.Create(Sample.Create("ReactivePropertyMode"), true),
+                        SampleTreeViewAdapter.Create(Sample.Create("CombineLatestValuesAreAll"), true),
                     })
                 }
             );

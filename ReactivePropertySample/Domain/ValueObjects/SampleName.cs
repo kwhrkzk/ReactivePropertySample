@@ -20,7 +20,7 @@ namespace Domain.ValueObjects
         public static SampleName Create(string _name)
         {
             if (String.IsNullOrEmpty(_name))
-                throw new ArgumentException("String.IsNullOrEmpty", nameof(_name));
+                throw new ArgumentException("String.IsNullOrEmpty", "SampleName");
 
             return new SampleName(_name);
         }

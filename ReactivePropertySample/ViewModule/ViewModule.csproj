@@ -152,6 +152,11 @@
     <Compile Include="BusyNotifier\Views\BusyNotifierView.xaml.cs">
       <DependentUpon>BusyNotifierView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CombineLatestValuesAreAll\Models\CombineLatestValuesAreAllModel.cs" />
+    <Compile Include="CombineLatestValuesAreAll\ViewModels\CombineLatestValuesAreAllViewModel.cs" />
+    <Compile Include="CombineLatestValuesAreAll\Views\CombineLatestValuesAreAllView.xaml.cs">
+      <DependentUpon>CombineLatestValuesAreAllView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CountNotifier\ViewModels\CountNotifierViewModel.cs" />
     <Compile Include="CountNotifier\Views\CountNotifierView.xaml.cs">
       <DependentUpon>CountNotifierView.xaml</DependentUpon>
@@ -191,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BusyNotifier\Views\BusyNotifierView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CombineLatestValuesAreAll\Views\CombineLatestValuesAreAllView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

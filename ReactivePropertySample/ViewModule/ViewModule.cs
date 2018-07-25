@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ViewModule.BooleanNotifier.Views;
 using ViewModule.BusyNotifier.Views;
+using ViewModule.CombineLatestValuesAreAll.Views;
 using ViewModule.CountNotifier.Views;
 using ViewModule.MessageBroker.Views;
 using ViewModule.Pairwise.Views;
@@ -36,6 +37,7 @@ namespace ViewModule
             Container.RegisterTypeForNavigation<ReactiveTimerView>(nameof(ReactiveTimerView));
             Container.RegisterTypeForNavigation<PairwiseView>(nameof(PairwiseView));
             Container.RegisterTypeForNavigation<ReactivePropertyModeView>(nameof(ReactivePropertyModeView));
+            Container.RegisterTypeForNavigation<CombineLatestValuesAreAllView>(nameof(CombineLatestValuesAreAllView));
 
             Container.RegisterType<BindingErrorListener>(new ContainerControlledLifetimeManager());
 
