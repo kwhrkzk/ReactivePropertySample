@@ -40,6 +40,7 @@ namespace ReactivePropertySample.Models
                         SampleTreeViewAdapter.Create(Sample.Create("Pairwise"), true),
                         SampleTreeViewAdapter.Create(Sample.Create("ReactivePropertyMode"), true),
                         SampleTreeViewAdapter.Create(Sample.Create("CombineLatestValuesAreAll"), true),
+                        SampleTreeViewAdapter.Create(Sample.Create("ToReactivePropertyAsSynchronized"), true),
                     })
                 }
             );

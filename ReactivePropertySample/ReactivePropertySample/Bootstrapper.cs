@@ -1,6 +1,5 @@
 ﻿using Domain.Services;
 using Instances.Services;
-using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
@@ -11,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Unity;
+using Unity.Lifetime;
 
 namespace ReactivePropertySample
 {

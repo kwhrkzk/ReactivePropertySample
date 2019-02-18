@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.Lifetime;
 using ViewModule.BooleanNotifier.Views;
 using ViewModule.BusyNotifier.Views;
 using ViewModule.CombineLatestValuesAreAll.Views;
@@ -17,31 +18,32 @@ using ViewModule.ReactivePropertyMode.Views;
 using ViewModule.ReactivePropertySlim.Views;
 using ViewModule.ReactiveTimer.Views;
 using ViewModule.ScheduledNotifier.Views;
+using ViewModule.ToReactivePropertyAsSynchronized.Views;
 
 namespace ViewModule
 {
     public class ViewModule : IModule
     {
-        private IUnityContainer Container { get; }
-
-        public ViewModule(IUnityContainer _container) => Container = _container;
-
-        public void Initialize()
+        public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            Container.RegisterTypeForNavigation<BooleanNotifierView>(nameof(BooleanNotifierView));
-            Container.RegisterTypeForNavigation<BusyNotifierView>(nameof(BusyNotifierView));
-            Container.RegisterTypeForNavigation<CountNotifierView>(nameof(CountNotifierView));
-            Container.RegisterTypeForNavigation<MessageBrokerView>(nameof(MessageBrokerView));
-            Container.RegisterTypeForNavigation<ScheduledNotifierView>(nameof(ScheduledNotifierView));
-            Container.RegisterTypeForNavigation<ReactivePropertySlimView>(nameof(ReactivePropertySlimView));
-            Container.RegisterTypeForNavigation<ReactiveTimerView>(nameof(ReactiveTimerView));
-            Container.RegisterTypeForNavigation<PairwiseView>(nameof(PairwiseView));
-            Container.RegisterTypeForNavigation<ReactivePropertyModeView>(nameof(ReactivePropertyModeView));
-            Container.RegisterTypeForNavigation<CombineLatestValuesAreAllView>(nameof(CombineLatestValuesAreAllView));
+            containerRegistry.RegisterForNavigation<BooleanNotifierView>(nameof(BooleanNotifierView));
+            containerRegistry.RegisterForNavigation<BusyNotifierView>(nameof(BusyNotifierView));
+            containerRegistry.RegisterForNavigation<CountNotifierView>(nameof(CountNotifierView));
+            containerRegistry.RegisterForNavigation<MessageBrokerView>(nameof(MessageBrokerView));
+            containerRegistry.RegisterForNavigation<ScheduledNotifierView>(nameof(ScheduledNotifierView));
+            containerRegistry.RegisterForNavigation<ReactivePropertySlimView>(nameof(ReactivePropertySlimView));
+            containerRegistry.RegisterForNavigation<ReactiveTimerView>(nameof(ReactiveTimerView));
+            containerRegistry.RegisterForNavigation<PairwiseView>(nameof(PairwiseView));
+            containerRegistry.RegisterForNavigation<ReactivePropertyModeView>(nameof(ReactivePropertyModeView));
+            containerRegistry.RegisterForNavigation<CombineLatestValuesAreAllView>(nameof(CombineLatestValuesAreAllView));
+            containerRegistry.RegisterForNavigation<ToReactivePropertyAsSynchronizedView>(nameof(ToReactivePropertyAsSynchronizedView));
 
-            Container.RegisterType<BindingErrorListener>(new ContainerControlledLifetimeManager());
+            containerRegistry.Register<BindingErrorListener>();
+        }
 
-            Container.Resolve<BindingErrorListener>().Listen(m => System.Windows.MessageBox.Show(m));
+        public void OnInitialized(IContainerProvider containerProvider)
+        {
+            containerProvider.Resolve<BindingErrorListener>().Listen(m => System.Windows.MessageBox.Show(m));
         }
     }
 }
